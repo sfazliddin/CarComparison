@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { rapidApiHost, rapidApiKey } from "../utils/api";
 
 class Car {
   make;
@@ -25,8 +26,8 @@ const EfficiencyComparison = () => {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "bc201214d3msh4a382f26a70841cp1eac53jsn45eb7afbd3bb",
-        "X-RapidAPI-Host": "car-api2.p.rapidapi.com",
+        "X-RapidAPI-Key": rapidApiKey,
+        "X-RapidAPI-Host": rapidApiHost,
       },
     };
 
@@ -34,7 +35,7 @@ const EfficiencyComparison = () => {
       const response = await fetch(url, options);
       const result = await response.text();
       console.log(result);
-      setCar1((prevCar1) => ({ ...prevCar1, make: result.data }));
+      setCar1((prevCar1) => ({ ...prevCar1, make: result }));
     } catch (error) {
       console.error(error);
     }
