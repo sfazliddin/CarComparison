@@ -23,9 +23,17 @@ const EfficiencyComparison = () => {
   });
 
   const [carList, setCarList] = useState([]);
-
+  const [mileage, setMileage] = useState(0);
+  const [gasPrice, setGasPrice] = useState(0);
+  const [costAfterMileage, setCostAfterMileage] = useState(0);
   const handleChange = (e) => {
     setCarInfo({ ...carInfo, [e.target.name]: e.target.value });
+  };
+  const handleChangeMileage = (e) => {
+    setMileage(e.target.value);
+  };
+  const handleChangeGasPrice = (e) => {
+    setGasPrice(e.target.value);
   };
 
   const submitForm = () => {
@@ -53,6 +61,9 @@ const EfficiencyComparison = () => {
       highwayMPG: "",
       combinedMPG: "",
     });
+  };
+  const compareForm = (index) => {
+    setCostAfterMileage(carList[index].cost - mileage + 1);
   };
 
   return (
@@ -168,6 +179,47 @@ const EfficiencyComparison = () => {
                 Submit
               </button>
             </form>
+            <div>
+              <form style={{ marginTop: "30px" }}>
+                <div
+                  style={{
+                    marginBottom: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <label htmlFor="mileage">Enter Mileage:</label>
+                  <input
+                    type="number"
+                    id="mileage"
+                    name="mileage"
+                    value={mileage}
+                    onChange={handleChangeMileage}
+                    required
+                  />
+                </div>
+                <div
+                  style={{
+                    marginBottom: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <label htmlFor="avgGasPrice">Enter Gas Price:</label>
+                  <input
+                    type="number"
+                    id="gasPrice"
+                    name="gasPrice"
+                    value={gasPrice}
+                    onChange={handleChangeGasPrice}
+                    required
+                  />
+                </div>
+                <button type="button" onClick={compareForm}>
+                  Compare
+                </button>
+              </form>
+            </div>
           </div>
 
           <div
@@ -201,6 +253,10 @@ const EfficiencyComparison = () => {
                 </p>
                 <p>
                   <strong>Combined MPG:</strong> {car.combinedMPG}
+                </p>
+                <p>
+                  <strong>Cost after {mileage} miles:</strong>{" "}
+                  {costAfterMileage}
                 </p>
               </div>
             ))}
