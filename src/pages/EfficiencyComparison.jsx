@@ -1,14 +1,6 @@
 import { useState } from "react";
-import { rapidApiHost, rapidApiKey } from "../utils/api";
 
 class Car {
-  make;
-  model;
-  year;
-  cost;
-  cityMPG;
-  highwayMPG;
-  combinedMPG;
   constructor(make, model, year, cost, cityMPG, highwayMPG, combinedMPG) {
     this.make = make;
     this.model = model;
@@ -19,42 +11,41 @@ class Car {
     this.combinedMPG = combinedMPG;
   }
 }
-const EfficiencyComparison = () => {
-  const getCar = async () => {
-    const url =
-      "https://car-api2.p.rapidapi.com/api/mileages?direction=asc&verbose=yes&sort=id&model=accord&trim=lx&year=2023&make=honda";
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": rapidApiKey,
-        "X-RapidAPI-Host": rapidApiHost,
-      },
-    };
 
-    try {
-      const response = await fetch(url, options);
-      const result = await response.text();
-      console.log(result);
-      setCar1((prevCar1) => ({ ...prevCar1, make: result }));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const [car1, setCar1] = useState({
+const EfficiencyComparison = () => {
+  const [carInfo, setCarInfo] = useState({
     make: "",
     model: "",
-    year: null,
-    cost: null,
-    cityMPG: null,
-    highwayMPG: null,
-    combinedMPG: null,
+    year: "",
+    cost: "",
+    cityMPG: "",
+    highwayMPG: "",
+    combinedMPG: "",
   });
 
-  // const car1 = new Car("Ford", "Escape", 2022, 24500, 29, 34, 31.5);
-  const car2 = new Car("Toyota", "Camry", 2024, 23500, 34, 37, 35.5);
-  const car3 = new Car("Honda", "Accord", 2023, 25500, 32, 38, 35);
-  const car4 = new Car("BMW", "X7", 2020, 50500, 21, 27, 24);
+  const handleChange = (e) => {
+    setCarInfo({ ...carInfo, [e.target.name]: e.target.value });
+  };
 
+  const submitForm = () => {
+    const { make, model, year, cost, cityMPG, highwayMPG, combinedMPG } =
+      carInfo;
+    const car = new Car(
+      make,
+      model,
+      year,
+      cost,
+      cityMPG,
+      highwayMPG,
+      combinedMPG
+    );
+
+    // Example: Log the car information
+    console.log("Car Information:", car);
+
+    // Add your logic here to further use or display the car information
+  };
+  console.log;
   return (
     <>
       <h1 style={{ alignSelf: "center" }}>Efficiency Comparison</h1>
@@ -68,47 +59,85 @@ const EfficiencyComparison = () => {
       >
         <div style={{ flex: "20%", padding: "5px" }}>
           <h3> Car 1</h3>
-          <h4>Make:{car1.make}</h4>
-          <h4>Model:{car1.model}</h4>
-          <h4>Year:{car1.year}</h4>
-          <h4>Cost: ${car1.cost}</h4>
-          <h4>City MPG:{car1.cityMPG}</h4>
-          <h4>Highway MPG:{car1.highwayMPG}</h4>
-          <h4>Combined MPG:{car1.combinedMPG}</h4>
-          <button>Update Car 1</button>
-        </div>
-        <div style={{ flex: "20%", padding: "5px" }}>
-          <h3> Car 2</h3>
-          <h4>Make:{car2.make}</h4>
-          <h4>Model:{car2.model}</h4>
-          <h4>Year:{car2.year}</h4>
-          <h4>Cost: ${car2.cost}</h4>
-          <h4>City MPG:{car2.cityMPG}</h4>
-          <h4>Highway MPG:{car2.highwayMPG}</h4>
-          <h4>Combined MPG:{car2.combinedMPG}</h4>
-        </div>
-        <div style={{ flex: "20%", padding: "5px" }}>
-          <h3> Car 3</h3>
-          <h4>Make:{car3.make}</h4>
-          <h4>Model:{car3.model}</h4>
-          <h4>Year:{car3.year}</h4>
-          <h4>Cost: ${car3.cost}</h4>
-          <h4>City MPG:{car3.cityMPG}</h4>
-          <h4>Highway MPG:{car3.highwayMPG}</h4>
-          <h4>Combined MPG:{car3.combinedMPG}</h4>
-        </div>
-        <div style={{ flex: "20%", padding: "5px" }}>
-          <h3> Car 4</h3>
-          <h4>Make:{car4.make}</h4>
-          <h4>Model:{car4.model}</h4>
-          <h4>Year:{car4.year}</h4>
-          <h4>Cost: ${car4.cost}</h4>
-          <h4>City MPG:{car4.cityMPG}</h4>
-          <h4>Highway MPG:{car4.highwayMPG}</h4>
-          <h4>Combined MPG:{car4.combinedMPG}</h4>
+          <form>
+            <label htmlFor="make">Make:</label>
+            <input
+              type="text"
+              id="make"
+              name="make"
+              value={carInfo.make}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="model">Model:</label>
+            <input
+              type="text"
+              id="model"
+              name="model"
+              value={carInfo.model}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="year">Year:</label>
+            <input
+              type="number"
+              id="year"
+              name="year"
+              value={carInfo.year}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="cost">Cost:</label>
+            <input
+              type="number"
+              id="cost"
+              name="cost"
+              value={carInfo.cost}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="cityMPG">City MPG:</label>
+            <input
+              type="number"
+              id="cityMPG"
+              name="cityMPG"
+              value={carInfo.cityMPG}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="highwayMPG">Highway MPG:</label>
+            <input
+              type="number"
+              id="highwayMPG"
+              name="highwayMPG"
+              value={carInfo.highwayMPG}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="combinedMPG">Combined MPG:</label>
+            <input
+              type="number"
+              id="combinedMPG"
+              name="combinedMPG"
+              value={carInfo.combinedMPG}
+              onChange={handleChange}
+              required
+            />
+
+            <button type="button" onClick={submitForm}>
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </>
   );
 };
+
 export default EfficiencyComparison;
