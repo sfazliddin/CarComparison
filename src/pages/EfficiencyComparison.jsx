@@ -25,7 +25,7 @@ const EfficiencyComparison = () => {
   const [carList, setCarList] = useState([]);
   const [mileage, setMileage] = useState(0);
   const [gasPrice, setGasPrice] = useState(0);
-  const [costAfterMileage, setCostAfterMileage] = useState(0);
+
   const handleChange = (e) => {
     setCarInfo({ ...carInfo, [e.target.name]: e.target.value });
   };
@@ -61,9 +61,6 @@ const EfficiencyComparison = () => {
       highwayMPG: "",
       combinedMPG: "",
     });
-  };
-  const compareForm = (index) => {
-    setCostAfterMileage(carList[index].cost - mileage + 1);
   };
 
   return (
@@ -215,9 +212,6 @@ const EfficiencyComparison = () => {
                     required
                   />
                 </div>
-                <button type="button" onClick={compareForm}>
-                  Compare
-                </button>
               </form>
             </div>
           </div>
@@ -255,8 +249,9 @@ const EfficiencyComparison = () => {
                   <strong>Combined MPG:</strong> {car.combinedMPG}
                 </p>
                 <p>
-                  <strong>Cost after {mileage} miles:</strong>{" "}
-                  {costAfterMileage}
+                  <strong>Cost after {mileage} miles:</strong>$
+                  {(gasPrice * mileage) / parseFloat(car.combinedMPG) +
+                    parseInt(car.cost)}
                 </p>
               </div>
             ))}
