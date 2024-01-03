@@ -25,6 +25,7 @@ const EfficiencyComparison = () => {
   const [carList, setCarList] = useState([]);
   const [mileage, setMileage] = useState(0);
   const [gasPrice, setGasPrice] = useState(0);
+  const [editIndex, setEditIndex] = useState(null);
 
   const handleChange = (e) => {
     setCarInfo({ ...carInfo, [e.target.name]: e.target.value });
@@ -41,17 +42,44 @@ const EfficiencyComparison = () => {
       carInfo;
     const capitalizedMake = make.charAt(0).toUpperCase() + make.slice(1);
     const capitalizedModel = model.charAt(0).toUpperCase() + model.slice(1);
-    const car = new Car(
-      capitalizedMake,
-      capitalizedModel,
-      year,
-      cost,
-      parseInt(highwayMPG),
-      parseInt(cityMPG),
-      combinedMPG
-    );
 
-    setCarList([...carList, car]);
+    // const car = new Car(
+    //   capitalizedMake,
+    //   capitalizedModel,
+    //   year,
+    //   cost,
+    //   parseInt(highwayMPG),
+    //   parseInt(cityMPG),
+    //   combinedMPG
+    // );
+
+    // setCarList([...carList, car]);
+    if (editIndex !== null) {
+      // Update existing car if in edit mode
+      const updatedCarList = [...carList];
+      updatedCarList[editIndex] = new Car(
+        capitalizedMake,
+        capitalizedModel,
+        year,
+        cost,
+        parseInt(cityMPG),
+        parseInt(highwayMPG),
+        combinedMPG
+      );
+      setCarList(updatedCarList);
+      setEditIndex(null); // Exit edit mode
+    } else {
+      // Add new car
+      const car = new Car(
+        capitalizedMake,
+        capitalizedModel,
+        year,
+        cost,
+        parseInt(cityMPG),
+        parseInt(highwayMPG)
+      );
+      setCarList([...carList, car]);
+    }
     setCarInfo({
       make: "",
       model: "",
@@ -65,6 +93,19 @@ const EfficiencyComparison = () => {
   const removeCar = (index) => {
     const updatedCarList = carList.filter((_, i) => i !== index);
     setCarList(updatedCarList);
+    setEditIndex(null);
+  };
+  const editCar = (index) => {
+    const carToEdit = carList[index];
+    setCarInfo({
+      make: carToEdit.make,
+      model: carToEdit.model,
+      year: carToEdit.year.toString(),
+      cost: carToEdit.cost.toString(),
+      cityMPG: carToEdit.cityMPG.toString(),
+      highwayMPG: carToEdit.highwayMPG.toString(),
+    });
+    setEditIndex(index);
   };
 
   return (
@@ -177,7 +218,7 @@ const EfficiencyComparison = () => {
                 />
               </div>
               <button type="button" onClick={addCar}>
-                Add Car
+                {editIndex !== null ? "Update Car" : "Add Car"}
               </button>
             </form>
             <div>
@@ -253,10 +294,19 @@ const EfficiencyComparison = () => {
                   <strong>Combined MPG:</strong> {car.combinedMPG}
                 </p>
                 <p>
-                  <strong>Cost after {mileage} miles:</strong>$
-                  {(gasPrice * mileage) / parseFloat(car.combinedMPG) +
-                    parseInt(car.cost)}
+                  <strong>Gas Cost:</strong>${" "}
+                  {((gasPrice * mileage) / parseFloat(car.combinedMPG)).toFixed(
+                    2
+                  )}
                 </p>
+                <p>
+                  <strong>Cost after {mileage} miles:</strong>$
+                  {(
+                    (gasPrice * mileage) / parseFloat(car.combinedMPG) +
+                    parseInt(car.cost)
+                  ).toFixed(2)}
+                </p>
+                <button onClick={() => editCar(index)}>Edit Car</button>
                 <button onClick={() => removeCar(index)}>Remove Car</button>
               </div>
             ))}
