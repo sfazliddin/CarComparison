@@ -36,7 +36,7 @@ const EfficiencyComparison = () => {
     setGasPrice(e.target.value);
   };
 
-  const submitForm = () => {
+  const addCar = () => {
     const { make, model, year, cost, cityMPG, highwayMPG, combinedMPG } =
       carInfo;
     const capitalizedMake = make.charAt(0).toUpperCase() + make.slice(1);
@@ -61,6 +61,10 @@ const EfficiencyComparison = () => {
       highwayMPG: "",
       combinedMPG: "",
     });
+  };
+  const removeCar = (index) => {
+    const updatedCarList = carList.filter((_, i) => i !== index);
+    setCarList(updatedCarList);
   };
 
   return (
@@ -172,8 +176,8 @@ const EfficiencyComparison = () => {
                   required
                 />
               </div>
-              <button type="button" onClick={submitForm}>
-                Submit
+              <button type="button" onClick={addCar}>
+                Add Car
               </button>
             </form>
             <div>
@@ -253,6 +257,7 @@ const EfficiencyComparison = () => {
                   {(gasPrice * mileage) / parseFloat(car.combinedMPG) +
                     parseInt(car.cost)}
                 </p>
+                <button onClick={() => removeCar(index)}>Remove Car</button>
               </div>
             ))}
           </div>
