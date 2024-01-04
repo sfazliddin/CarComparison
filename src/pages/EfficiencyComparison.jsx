@@ -1,4 +1,6 @@
 import { useState } from "react";
+import "./Carform.css";
+// src / utils / Carform.css;
 
 class Car {
   constructor(make, model, year, cost, cityMPG, highwayMPG) {
@@ -109,13 +111,7 @@ const EfficiencyComparison = () => {
         <div style={{ display: "flex", justifyContent: "flex-start" }}>
           <div style={{ width: "15%", padding: "20px" }}>
             <form>
-              <div
-                style={{
-                  marginBottom: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
+              <div className="detailInput">
                 <label htmlFor="make">Make:</label>
                 <input
                   type="text"
@@ -126,13 +122,7 @@ const EfficiencyComparison = () => {
                   required
                 />
               </div>
-              <div
-                style={{
-                  marginBottom: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
+              <div className="detailInput">
                 <label htmlFor="model">Model:</label>
                 <input
                   type="text"
@@ -143,13 +133,7 @@ const EfficiencyComparison = () => {
                   required
                 />
               </div>
-              <div
-                style={{
-                  marginBottom: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
+              <div className="detailInput">
                 <label htmlFor="year">Year:</label>
                 <input
                   type="number"
@@ -160,13 +144,7 @@ const EfficiencyComparison = () => {
                   required
                 />
               </div>
-              <div
-                style={{
-                  marginBottom: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
+              <div className="detailInput">
                 <label htmlFor="cost">Cost:</label>
                 <input
                   type="number"
@@ -178,6 +156,7 @@ const EfficiencyComparison = () => {
                 />
               </div>
               <div
+                className="detailInput"
                 style={{
                   marginBottom: "10px",
                   display: "flex",
@@ -194,13 +173,7 @@ const EfficiencyComparison = () => {
                   required
                 />
               </div>
-              <div
-                style={{
-                  marginBottom: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
+              <div className="detailInput">
                 <label htmlFor="highwayMPG">Highway MPG:</label>
                 <input
                   type="number"
@@ -220,13 +193,7 @@ const EfficiencyComparison = () => {
             </form>
             <div>
               <form style={{ marginTop: "30px" }}>
-                <div
-                  style={{
-                    marginBottom: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
+                <div className="detailInput">
                   <label htmlFor="mileage">Enter Mileage:</label>
                   <input
                     type="number"
@@ -237,13 +204,7 @@ const EfficiencyComparison = () => {
                     required
                   />
                 </div>
-                <div
-                  style={{
-                    marginBottom: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
+                <div className="detailInput">
                   <label htmlFor="avgGasPrice">Enter Gas Price:</label>
                   <input
                     type="number"
