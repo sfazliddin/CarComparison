@@ -43,17 +43,6 @@ const EfficiencyComparison = () => {
     const capitalizedMake = make.charAt(0).toUpperCase() + make.slice(1);
     const capitalizedModel = model.charAt(0).toUpperCase() + model.slice(1);
 
-    // const car = new Car(
-    //   capitalizedMake,
-    //   capitalizedModel,
-    //   year,
-    //   cost,
-    //   parseInt(highwayMPG),
-    //   parseInt(cityMPG),
-    //   combinedMPG
-    // );
-
-    // setCarList([...carList, car]);
     if (editIndex !== null) {
       // Update existing car if in edit mode
       const updatedCarList = [...carList];
@@ -90,10 +79,15 @@ const EfficiencyComparison = () => {
       combinedMPG: "",
     });
   };
+  //removes a car
   const removeCar = (index) => {
     const updatedCarList = carList.filter((_, i) => i !== index);
     setCarList(updatedCarList);
     setEditIndex(null);
+  };
+  const removeAllCars = () => {
+    setCarList([]);
+    setEditIndex(null); // Exit edit mode when removing all cars
   };
   const editCar = (index) => {
     const carToEdit = carList[index];
@@ -219,6 +213,9 @@ const EfficiencyComparison = () => {
               </div>
               <button type="button" onClick={addCar}>
                 {editIndex !== null ? "Update Car" : "Add Car"}
+              </button>
+              <button type="button" onClick={removeAllCars}>
+                Remove All Cars
               </button>
             </form>
             <div>
