@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import CarForm from "../components/CarForm";
+import MileageForm from "../components/MileageForm";
 
 class Car {
   constructor(make, model, year, cost, cityMPG, highwayMPG) {
@@ -118,32 +119,7 @@ const EfficiencyComparison = () => {
               removeAllCars={removeAllCars}
             />
 
-            <div>
-              <form style={{ marginTop: "30px" }}>
-                <div className="detailInput">
-                  <label htmlFor="mileage">Enter Mileage:</label>
-                  <input
-                    type="number"
-                    id="mileage"
-                    name="mileage"
-                    value={mileage}
-                    onChange={handleChangeMileage}
-                    required
-                  />
-                </div>
-                <div className="detailInput">
-                  <label htmlFor="avgGasPrice">Enter Gas Price:</label>
-                  <input
-                    type="number"
-                    id="gasPrice"
-                    name="gasPrice"
-                    value={gasPrice}
-                    onChange={handleChangeGasPrice}
-                    required
-                  />
-                </div>
-              </form>
-            </div>
+            <MileageForm />
           </div>
 
           <div

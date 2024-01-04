@@ -9,7 +9,7 @@ const CarForm = ({
   removeAllCars,
 }) => {
   return (
-    <div style={{ width: "25%", padding: "20px" }}>
+    <div style={{ padding: "20px" }}>
       <form>
         <div className="detailInput">
           <label htmlFor="make">Make:</label>
@@ -55,14 +55,7 @@ const CarForm = ({
             required
           />
         </div>
-        <div
-          className="detailInput"
-          style={{
-            marginBottom: "10px",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+        <div className="detailInput">
           <label htmlFor="cityMPG">City MPG:</label>
           <input
             type="number"
