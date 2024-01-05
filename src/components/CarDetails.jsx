@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-// CarDetails.js
-import React from "react";
 
 const CarDetails = ({ car, index, editCar, removeCar, gasPrice, mileage }) => {
   return (

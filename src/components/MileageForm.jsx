@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-// MileageForm.js
-import React from "react";
 import "./CarForm.css";
 
 const MileageForm = ({

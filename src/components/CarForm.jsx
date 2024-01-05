@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-// CarForm.js
 import "./CarForm.css";
 const CarForm = ({
   carInfo,
